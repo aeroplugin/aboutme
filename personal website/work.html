@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work — Ayush Jain</title>
+<meta name="description" content="Things Ayush Jain has built and researched." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23b4542f' stroke-width='3'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Styles are inlined so this page works on its own — just open
+   it. The same block appears in every page; if you change it,
+   update the others too (or re-link a shared style.css).
+   ============================================================ */
+
+:root {
+  --bg:    #f5f3ec;   /* warm cream */
+  --panel: #efece3;
+  --ink:   #1d1b17;   /* near-black, warm */
+  --muted: #6c675d;
+  --faint: #b8b2a6;
+  --rule:  #e3ded2;
+  --accent:#b4542f;   /* terracotta — change this one color to rebrand */
+  --maxw:  660px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#14130f; --panel:#1b1a14; --ink:#ece7db; --muted:#9b9485;
+    --faint:#4c483e; --rule:#2a271f; --accent:#d98b5f;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#14130f; --panel:#1b1a14; --ink:#ece7db; --muted:#9b9485;
+  --faint:#4c483e; --rule:#2a271f; --accent:#d98b5f;
+}
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: 19px;
+  line-height: 1.6;
+  letter-spacing: .005em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px 96px; }
+
+a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px;
+    text-underline-offset: 2px; text-decoration-color: var(--faint);
+    transition: color .18s ease, text-decoration-color .18s ease; }
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+p { margin: 0 0 1.1em; }
+.muted { color: var(--muted); }
+
+/* ---------- top navigation (persists on every page) ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 14px 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+}
+.nav-left, .nav-right { display: flex; gap: 20px; }
+.nav a { font-size: .95rem; color: var(--muted); text-decoration: none; }
+.nav a:hover { color: var(--accent); }
+.nav a.active {
+  color: var(--ink); text-decoration: underline;
+  text-decoration-color: var(--accent); text-underline-offset: 5px;
+}
+@media (max-width: 480px) {
+  .nav-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .nav-left, .nav-right { gap: 16px; }
+}
+
+/* ---------- headings & page titles ---------- */
+.hero-name { font-size: clamp(2.2rem, 7vw, 3rem); font-weight: 400;
+             letter-spacing: -.02em; margin: 34px 0 6px; }
+h1.page { font-size: clamp(2rem, 6vw, 2.5rem); font-weight: 500;
+          letter-spacing: -.02em; margin: 34px 0 8px; }
+.page-lead { color: var(--muted); font-style: italic; margin: 0 0 32px; }
+
+.lead { color: var(--muted); font-style: italic; font-size: 1.02rem; margin: 0 0 14px; }
+
+h2.section {
+  font-family: "Dancing Script", "Newsreader", cursive;
+  font-weight: 700; font-size: 1.9rem; color: var(--ink);
+  margin: 0 0 14px; letter-spacing: 0;
+}
+
+/* ---------- topological centerpiece ---------- */
+.stage { position: relative; width: 100%; height: clamp(300px, 50vh, 440px);
+         cursor: grab; touch-action: none; }
+.stage:active { cursor: grabbing; }
+.stage canvas { display: block; width: 100%; height: 100%; }
+
+.controls { display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; margin-top: 6px; font-size: .8rem; letter-spacing: .04em;
+            color: var(--muted); }
+.controls .hint { font-variant: small-caps; }
+.ctl-group { display: flex; align-items: center; gap: 4px; }
+.ctl { background: none; border: none; color: var(--muted); cursor: pointer;
+       font: inherit; letter-spacing: inherit; padding: 4px 8px; border-radius: 6px;
+       transition: color .15s ease, background .15s ease; }
+.ctl:hover { color: var(--accent); background: var(--panel); }
+.shape-btn { font-variant: small-caps; letter-spacing: .06em; }
+
+hr.rule { border: none; border-top: 1px solid var(--rule); margin: 26px 0; }
+.readcue { text-align: right; font-size: .82rem; letter-spacing: .04em;
+           color: var(--muted); font-variant: small-caps; margin: -8px 0 0; }
+
+/* ---------- sections ---------- */
+section { margin-top: 54px; }
+
+/* intro essay */
+.intro { font-size: 1.08rem; }
+.intro ul { list-style: none; padding: 0; margin: 0 0 1.1em; }
+.intro li { position: relative; padding-left: 20px; margin-bottom: 6px; }
+.intro li::before { content: "·"; position: absolute; left: 4px; color: var(--accent); }
+
+/* list rows */
+.row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+       padding: 13px 0; border-bottom: 1px solid var(--rule);
+       text-decoration: none; color: var(--ink); transition: padding-left .2s ease; }
+.row:first-of-type { border-top: 1px solid var(--rule); }
+.row:hover { padding-left: 6px; }
+.row-title { font-size: 1.05rem; }
+.row:hover .row-title { color: var(--accent); }
+.row-sub { display: block; font-size: .9rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+.row-meta { font-size: .85rem; color: var(--muted); white-space: nowrap; }
+
+.more { display: inline-block; margin-top: 18px; font-size: .95rem; color: var(--muted); }
+.more:hover { color: var(--accent); }
+
+/* portfolio entries (media + title — year + description) */
+.entry { margin: 0 0 48px; }
+.entry-media, .ph {
+  width: 100%; aspect-ratio: 16 / 10; border-radius: 10px;
+  border: 1px solid var(--rule); background: var(--panel);
+  display: block; object-fit: cover; margin-bottom: 14px;
+}
+.ph { display: flex; align-items: center; justify-content: center;
+      color: var(--faint); font-size: .85rem; font-style: italic;
+      border-style: dashed; }
+.entry-head { display: flex; align-items: baseline; justify-content: space-between;
+              gap: 12px; margin-bottom: 6px; }
+.entry-title { font-size: 1.2rem; }
+.entry-year { font-size: .85rem; color: var(--muted); white-space: nowrap; }
+.entry p { margin: 0 0 .6em; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { font-size: .74rem; color: var(--muted); border: 1px solid var(--rule);
+       border-radius: 999px; padding: 2px 9px; }
+
+.tagline { margin-top: 54px; font-style: italic; color: var(--muted); font-size: 1.05rem; }
+
+/* ---------- footer ---------- */
+footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--rule);
+         font-size: .92rem; color: var(--muted); }
+footer a { color: var(--muted); text-decoration-color: transparent; }
+footer a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+/* ---------- entrance animation ---------- */
+.reveal { opacity: 0; transform: translateY(10px);
+          animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none !important; opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="nav">
+  <nav class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html">home</a>
+      <a href="work.html" class="active">work</a>
+      <a href="writing.html">writing</a>
+      <a href="about.html">about</a>
+    </div>
+    <div class="nav-right">
+      <a href="mailto:ayushjain112321@gmail.com">email</a>
+      <a href="https://github.com/yourusername" target="_blank" rel="noopener">github</a>
+    </div>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <h1 class="page reveal" style="--d:.02s">work</h1>
+  <p class="page-lead reveal" style="--d:.08s">A few things I've made, newest first.</p>
+
+  <!-- ============== ENTRY (duplicate per project) ==============
+       Swap the <div class="ph"> for a real image:
+         <img class="entry-media" src="images/project.jpg" alt="..." />
+       Fill the [bracketed] bits with specifics, and add real links on the titles.
+  -->
+  <article class="entry reveal" style="--d:.14s">
+    <div class="ph">replace with an image (16:10)</div>
+    <div class="entry-head">
+      <span class="entry-title">Psi Labs</span>
+      <span class="entry-year">Founder</span>
+    </div>
+    <p>Founder of Psi Labs — [one line on what it is and what you're building].</p>
+    <div class="tags">
+      <span class="tag">Founder</span><span class="tag">Startup</span>
+    </div>
+  </article>
+
+  <article class="entry reveal" style="--d:.2s">
+    <div class="ph">replace with an image (16:10)</div>
+    <div class="entry-head">
+      <span class="entry-title">Math research</span>
+      <span class="entry-year">MIT</span>
+    </div>
+    <p>Mathematics research at MIT on [topic / what you're proving].</p>
+    <div class="tags">
+      <span class="tag">Math</span><span class="tag">Research</span>
+    </div>
+  </article>
+
+  <article class="entry reveal" style="--d:.26s">
+    <div class="ph">replace with an image (16:10)</div>
+    <div class="entry-head">
+      <span class="entry-title">Quantum computing research</span>
+      <span class="entry-year">UMD × George Mason</span>
+    </div>
+    <p>Joint quantum-computing research with the University of Maryland and George Mason
+      University on [topic / what you're working on].</p>
+    <div class="tags">
+      <span class="tag">Quantum</span><span class="tag">Research</span>
+    </div>
+  </article>
+
+  <article class="entry reveal" style="--d:.32s">
+    <div class="ph">replace with an image (16:10)</div>
+    <div class="entry-head">
+      <span class="entry-title">Quant finance research</span>
+      <span class="entry-year">UMD</span>
+    </div>
+    <p>Quantitative-finance research at the University of Maryland on [topic / methods].</p>
+    <div class="tags">
+      <span class="tag">Quant</span><span class="tag">Research</span>
+    </div>
+  </article>
+
+  <article class="entry reveal" style="--d:.38s">
+    <div class="ph">replace with an image (16:10)</div>
+    <div class="entry-head">
+      <span class="entry-title">Teaching probability</span>
+      <span class="entry-year">Stanford</span>
+    </div>
+    <p>Taught probability at Stanford — [course / program and what it covered].</p>
+    <div class="tags">
+      <span class="tag">Teaching</span><span class="tag">Probability</span>
+    </div>
+  </article>
+
+  <article class="entry reveal" style="--d:.44s">
+    <div class="ph">replace with an image (16:10)</div>
+    <div class="entry-head">
+      <span class="entry-title">Ethical surveillance</span>
+      <span class="entry-year">Project</span>
+    </div>
+    <p>A project on ethical surveillance — [the question it asks and what you built].</p>
+    <div class="tags">
+      <span class="tag">Ethics</span><span class="tag">Policy</span>
+    </div>
+  </article>
+
+  <footer class="reveal" style="--d:.5s">
+    <a href="mailto:ayushjain112321@gmail.com">email</a> ·
+    <a href="https://github.com/yourusername" target="_blank" rel="noopener">github</a> ·
+    <a href="https://x.com/yourusername" target="_blank" rel="noopener">twitter</a> ·
+    <a href="https://www.linkedin.com/in/ayush-jain-99022a326/" target="_blank" rel="noopener">linkedin</a> ·
+    <a href="#" target="_blank" rel="noopener">scholar</a>
+  </footer>
+
+</div>
+</body>
+</html>
